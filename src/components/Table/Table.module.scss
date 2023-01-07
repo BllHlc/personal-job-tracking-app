@@ -1,0 +1,50 @@
+.tableContainer {
+  .tableHead {
+    background: #bed6e9;
+
+    th {
+      font-weight: bold;
+    }
+  }
+
+  .priority {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    width: 60px;
+    display: flex;
+    text-transform: capitalize;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  tbody {
+    .name {
+      width: 600px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    tr:nth-child(odd) {
+      background: #f2f2f2;
+    }
+  }
+
+  .iconGroup {
+    display: flex;
+
+    .action {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #dadada;
+      margin: 0 5px;
+      color: #686868
+    }
+  }
+}

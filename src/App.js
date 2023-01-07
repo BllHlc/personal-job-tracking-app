@@ -1,10 +1,13 @@
-import './App.css';
+import { Container } from '@mui/material';
+import Header from './components/Header';
+import Main from './components/Main';
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <Container fixed>
+      <Header />
+      <Main />
+    </Container>
   );
 }
 
