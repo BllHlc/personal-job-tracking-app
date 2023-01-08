@@ -18,6 +18,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { useMainContext } from '../../context/MainContext';
+import DeleteModal from '../Modals/DeleteModal';
+import EditModal from '../Modals/EditModal';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -81,9 +83,12 @@ TablePaginationActions.propTypes = {
 };
 
 const JobTable = () => {
-  const { filteredJobs, handleSort, order, orderBy, filteredArray, deleteJob } = useMainContext();
+  const { filteredJobs, handleSort, order, orderBy, filteredArray } = useMainContext();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [jobID, setJobID] = React.useState('');
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredJobs.length) : 0;
 
@@ -98,6 +103,8 @@ const JobTable = () => {
 
   return (
     <TableContainer component={Paper} className={styles.tableContainer}>
+      <DeleteModal open={openDelete} setOpen={setOpenDelete} jobID={jobID} />
+      {openEdit && <EditModal open={openEdit} setOpen={setOpenEdit} jobID={jobID} />}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow className={styles.tableHead}>
@@ -141,11 +148,19 @@ const JobTable = () => {
                 </TableCell>
                 <TableCell align="left">
                   <div className={styles.iconGroup}>
-                    <span className={styles.action}>
+                    <span className={styles.action}
+                      onClick={() => {
+                        setOpenEdit(true);
+                        setJobID(job.id);
+                      }}
+                    >
                       <EditOutlinedIcon />
                     </span>
                     <span className={styles.action}
-                      onClick={() => deleteJob(job.id)}
+                      onClick={() => {
+                        setOpenDelete(true);
+                        setJobID(job.id);
+                      }}
                     >
                       <DeleteOutlineIcon />
                     </span>

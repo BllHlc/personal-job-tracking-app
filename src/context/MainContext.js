@@ -33,6 +33,18 @@ const MainContextProvider = ({ children }) => {
     setJobs(newJobs);
   };
 
+  const editJobPriority = (id, priority) => {
+    const newJobs = jobs.map((job) => {
+      if (job.id === id) {
+        job.priority = priority;
+        job.priorityColor = priority === 'urgent' ? 'red' : priority === 'regular' ? 'orange' : 'blue';
+      }
+      return job;
+    });
+    setJobs(newJobs);
+    // handleSort(null, "priority");
+  };
+
   const handleSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -61,6 +73,7 @@ const MainContextProvider = ({ children }) => {
     filteredArray,
     setFilteredArray,
     deleteJob,
+    editJobPriority,
   };
 
   return (

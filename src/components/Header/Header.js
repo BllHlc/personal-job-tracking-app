@@ -32,7 +32,7 @@ const Header = () => {
   };
 
   const onlyAlphaNumeric = (e) => {
-    const regex = new RegExp(/^[a-zA-Z0-9 ]*$/);
+    const regex = new RegExp(/^[a-zA-Z0-9 ğüşöçİĞÜŞÖÇ]+$/);
     if (!regex.test(e.key)) {
       e.preventDefault();
     }
@@ -43,7 +43,7 @@ const Header = () => {
       <Logo fill="#f65235" width="100" height="100" />
       <Divider sx={{ width: "100%", height: 1, bgcolor: "grey.200", marginTop: 1 }} />
       <h1 className={styles.title}>Create New Job</h1>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, minHeight: 95 }}>
         <Grid spacing={2} container >
           <Grid item lg={7} md={12} sm={12} xs={12}>
             <TextField
