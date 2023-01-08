@@ -45,7 +45,7 @@ const Header = () => {
       <h1 className={styles.title}>Create New Job</h1>
       <Box sx={{ flexGrow: 1, minHeight: 95 }}>
         <Grid spacing={2} container >
-          <Grid item lg={7} md={12} sm={12} xs={12}>
+          <Grid item lg={7} md={7} sm={12} xs={12}>
             <TextField
               error={nameError}
               label="Job Name"
@@ -61,7 +61,7 @@ const Header = () => {
               onKeyPress={(e) => onlyAlphaNumeric(e)}
             />
           </Grid>
-          <Grid item lg={3} md={12} sm={12} xs={12}>
+          <Grid item lg={3} md={3} sm={12} xs={12}>
             <FormControl sx={{ width: "100%" }}
               required
               error={priorityError} >
@@ -82,7 +82,7 @@ const Header = () => {
               {priority.length === 0 && < FormHelperText>Job priority is required</FormHelperText>}
             </FormControl>
           </Grid>
-          <Grid item lg={2} md={12} sm={12} xs={12}>
+          <Grid item lg={2} md={2} sm={12} xs={12}>
             <Button variant="contained" startIcon={<AddIcon />} size="large"
               sx={{ height: 56, width: "100%" }}
               onClick={() => handleSubmit()}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -6,8 +6,6 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { IconButton, TablePagination } from '@mui/material';
-
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -70,37 +68,4 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const Pagination = function () {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  return (
-    <TablePagination
-      rowsPerPageOptions={[5, 10, 25, { label: 'All', value: rows.length }]}
-      colSpan={3}
-      count={rows.length}
-      rowsPerPage={rowsPerPage}
-      page={page}
-      SelectProps={{
-        inputProps: {
-          'aria-label': 'rows per page',
-        },
-        native: true,
-      }}
-      onPageChange={handleChangePage}
-      onRowsPerPageChange={handleChangeRowsPerPage}
-      ActionsComponent={TablePaginationActions}
-    />
-  );
-};
-
-export default Pagination;
+export default TablePaginationActions;

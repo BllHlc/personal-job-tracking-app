@@ -15,7 +15,7 @@ const Filter = () => {
     <>
       <div className={styles.search}>
         <Grid spacing={2} container>
-          <Grid item lg={8} md={12} sm={12} xs={12}>
+          <Grid item lg={8} md={8} sm={12} xs={12}>
             <FormControl fullWidth >
               <InputLabel htmlFor="job-name">Job Name</InputLabel>
               <OutlinedInput
@@ -30,7 +30,7 @@ const Filter = () => {
               />
             </FormControl>
           </Grid>
-          <Grid item lg={4} md={12} sm={12} xs={12}>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
             <FormControl fullWidth >
               <InputLabel id="priority-filter-label" >Job Priority</InputLabel>
               <Select
