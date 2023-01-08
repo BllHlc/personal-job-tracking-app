@@ -9,7 +9,6 @@ const Main = () => {
     <Box sx={{ flexGrow: 1 }}>
       <div className={styles.header}>
         <h2>Job List</h2>
-        <span> (3/3) </span>
       </div>
       <Filter />
       <Table />

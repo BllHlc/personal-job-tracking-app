@@ -17,7 +17,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { useMainContext } from '../context/MainContext';
+import { useMainContext } from '../../context/MainContext';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -81,19 +81,11 @@ TablePaginationActions.propTypes = {
 };
 
 const JobTable = () => {
-  const { filteredJobs } = useMainContext();
+  const { filteredJobs, handleSort, order, orderBy, filteredArray, deleteJob } = useMainContext();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState(null);
-  const [shortedRows, setShortedRows] = React.useState(filteredJobs);
 
-  React.useEffect(() => {
-    setShortedRows(filteredJobs);
-  }, [filteredJobs]);
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredJobs.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredJobs.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -102,20 +94,6 @@ const JobTable = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
-
-  const handleSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-    property = property === 'priority' ? 'priorityColor' : property;
-    if (isAsc) {
-      filteredJobs.sort((a, b) => (a[property] < b[property] ? 1 : -1));
-    } else {
-      filteredJobs.sort((a, b) => (a[property] > b[property] ? 1 : -1));
-    }
-
-    setShortedRows(filteredJobs);
   };
 
   return (
@@ -145,20 +123,20 @@ const JobTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {shortedRows
+          {filteredArray
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row, index) => (
+            .map((job, index) => (
               <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  <span className={styles.name}>{row.name}</span>
+                  <span className={styles.name}>{job.name}</span>
                 </TableCell>
                 <TableCell align="left">
                   <span
-                    style={{ backgroundColor: row.priority === 'urgent' ? '#e57373' : row.priority === 'regular' ? '#ffb74d' : '#4fc3f7' }}
-                    className={styles.priority}>{row.priority}
+                    style={{ backgroundColor: job.priority === 'urgent' ? '#e57373' : job.priority === 'regular' ? '#ffb74d' : '#4fc3f7' }}
+                    className={styles.priority}>{job.priority}
                   </span>
                 </TableCell>
                 <TableCell align="left">
@@ -166,7 +144,9 @@ const JobTable = () => {
                     <span className={styles.action}>
                       <EditOutlinedIcon />
                     </span>
-                    <span className={styles.action}>
+                    <span className={styles.action}
+                      onClick={() => deleteJob(job.id)}
+                    >
                       <DeleteOutlineIcon />
                     </span>
                   </div>

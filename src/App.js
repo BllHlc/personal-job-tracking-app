@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import { MainContextProvider } from './components/context/MainContext';
+import { MainContextProvider } from './context/MainContext';
 import Header from './components/Header';
 import Main from './components/Main';
 

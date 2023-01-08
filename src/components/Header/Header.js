@@ -4,7 +4,8 @@ import { Logo } from '../icons';
 import { Box } from '@mui/system';
 import { Button, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useMainContext } from '../context/MainContext';
+import { useMainContext } from '../../context/MainContext';
+import { nanoid } from 'nanoid';
 
 const Header = () => {
   const [name, setName] = React.useState('');
@@ -25,7 +26,7 @@ const Header = () => {
     if (!name || !priority) return;
     const priorityColor = priority === 'urgent' ? 'red' : priority === 'regular' ? 'orange' : 'blue';
 
-    addJobs({ name, priority, priorityColor });
+    addJobs({ id: nanoid(), name, priority, priorityColor });
     setName('');
     setPriority('');
   };

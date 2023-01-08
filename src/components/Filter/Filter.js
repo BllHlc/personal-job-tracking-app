@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Filter.module.scss';
 import { Search } from '@mui/icons-material';
 import { FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
-import { useMainContext } from '../context/MainContext';
+import { useMainContext } from '../../context/MainContext';
 
 const Filter = () => {
   const { filterPriority, setFilterPriority, filterName, setFilterName } = useMainContext();
