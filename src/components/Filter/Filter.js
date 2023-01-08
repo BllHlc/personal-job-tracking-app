@@ -2,8 +2,15 @@ import React from 'react';
 import styles from './Filter.module.scss';
 import { Search } from '@mui/icons-material';
 import { FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { useMainContext } from '../context/MainContext';
 
 const Filter = () => {
+  const { filterPriority, setFilterPriority, filterName, setFilterName } = useMainContext();
+
+  const handleChange = (event) => {
+    setFilterPriority(event.target.value);
+  };
+
   return (
     <>
       <div className={styles.search}>
@@ -18,6 +25,8 @@ const Filter = () => {
                     <Search />
                   </InputAdornment>}
                 label="Job Name"
+                value={filterName}
+                onChange={(e) => setFilterName(e.target.value)}
               />
             </FormControl>
           </Grid>
@@ -27,7 +36,10 @@ const Filter = () => {
               <Select
                 labelId="priority-filter-label"
                 id="priority-filter"
-                label="Job Priority">
+                label="Job Priority"
+                value={filterPriority}
+                onChange={handleChange}
+              >
                 <MenuItem value={"all"} selected>Priority (all)</MenuItem>
                 <MenuItem value={"trivial"}>Trivial</MenuItem>
                 <MenuItem value={"regular"}>Regular</MenuItem>

@@ -17,6 +17,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { useMainContext } from '../context/MainContext';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -79,58 +80,20 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const rows = [
-  {
-    name: 'adaylarla ilgili tekinik bir ödev hazırlamam gerekiyor',
-    priority: 'urgent',
-    priorityColor: 'red'
-  },
-  {
-    name: 'yapilan islerle ilgili activity kayitlari oluşturmam gerekiyor',
-    priority: 'regular',
-    priorityColor: 'orange'
-  },
-  {
-    name: 'teknik tasklari planlıyacağım',
-    priority: 'trivial',
-    priorityColor: 'blue'
-  },
-  {
-    name: 'bugün yapılacaklar listesini oluşturacağım',
-    priority: 'trivial',
-    priorityColor: 'blue'
-  },
-  {
-    name: 'kalite kontrolü yapacağım',
-    priority: 'regular',
-    priorityColor: 'orange'
-  },
-  {
-    name: 'teknik tasklari planlıyacağım',
-    priority: 'trivial',
-    priorityColor: 'blue'
-  },
-  {
-    name: 'zyapilan islerle ilgili activity kayitlari oluşturmam gerekiyor',
-    priority: 'regular',
-    priorityColor: 'orange'
-  },
-  {
-    name: 'teknik tasklari planlıyacağım',
-    priority: 'trivial',
-    priorityColor: 'blue'
-  }
-];
-
 const JobTable = () => {
+  const { filteredJobs } = useMainContext();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState(null);
-  const [shortedRows, setShortedRows] = React.useState(rows);
+  const [shortedRows, setShortedRows] = React.useState(filteredJobs);
+
+  React.useEffect(() => {
+    setShortedRows(filteredJobs);
+  }, [filteredJobs]);
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredJobs.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -147,13 +110,12 @@ const JobTable = () => {
     setOrderBy(property);
     property = property === 'priority' ? 'priorityColor' : property;
     if (isAsc) {
-      rows.sort((a, b) => (a[property] < b[property] ? 1 : -1));
+      filteredJobs.sort((a, b) => (a[property] < b[property] ? 1 : -1));
     } else {
-      rows.sort((a, b) => (a[property] > b[property] ? 1 : -1));
+      filteredJobs.sort((a, b) => (a[property] > b[property] ? 1 : -1));
     }
 
-    setShortedRows(rows);
-    console.log(rows);
+    setShortedRows(filteredJobs);
   };
 
   return (
@@ -220,9 +182,9 @@ const JobTable = () => {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: rows.length }]}
+              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: filteredJobs.length }]}
               colSpan={3}
-              count={rows.length}
+              count={filteredJobs.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

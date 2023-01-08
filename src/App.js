@@ -1,13 +1,16 @@
 import { Container } from '@mui/material';
+import { MainContextProvider } from './components/context/MainContext';
 import Header from './components/Header';
 import Main from './components/Main';
 
 function App() {
   return (
-    <Container fixed>
-      <Header />
-      <Main />
-    </Container>
+    <MainContextProvider >
+      <Container fixed>
+        <Header />
+        <Main />
+      </Container>
+    </MainContextProvider >
   );
 }
 
