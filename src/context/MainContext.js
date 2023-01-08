@@ -42,7 +42,6 @@ const MainContextProvider = ({ children }) => {
       return job;
     });
     setJobs(newJobs);
-    // handleSort(null, "priority");
   };
 
   const handleSort = (event, property) => {
@@ -55,14 +54,12 @@ const MainContextProvider = ({ children }) => {
     } else {
       filteredJobs.sort((a, b) => (a[property] > b[property] ? 1 : -1));
     }
-
     setFilteredArray(filteredJobs);
   };
 
   const values = {
     jobs,
     addJobs,
-    filteredJobs,
     filterPriority,
     setFilterPriority,
     filterName,
