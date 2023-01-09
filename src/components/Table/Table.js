@@ -111,7 +111,7 @@ const JobTable = () => {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: filteredArray.length }]}
+              rowsPerPageOptions={[5, 10, 25]}
               colSpan={3}
               count={filteredArray.length}
               rowsPerPage={rowsPerPage}

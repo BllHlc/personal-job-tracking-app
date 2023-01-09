@@ -3,6 +3,7 @@ import styles from './Filter.module.scss';
 import { Search } from '@mui/icons-material';
 import { FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { useMainContext } from '../../context/MainContext';
+import { prioritys, PRIORTY_TYPES } from '../../constants/global';
 
 const Filter = () => {
   const { filterPriority, setFilterPriority, filterName, setFilterName } = useMainContext();
@@ -40,10 +41,10 @@ const Filter = () => {
                 value={filterPriority}
                 onChange={handleChange}
               >
-                <MenuItem value={"all"} selected>Priority (all)</MenuItem>
-                <MenuItem value={"trivial"}>Trivial</MenuItem>
-                <MenuItem value={"regular"}>Regular</MenuItem>
-                <MenuItem value={"urgent"}>Urgent</MenuItem>
+                <MenuItem value={PRIORTY_TYPES.ALL} selected>Priority ({PRIORTY_TYPES.ALL})</MenuItem>
+                {prioritys.map((priority) => (
+                  <MenuItem key={priority.value} value={priority.value}>{priority.label}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>

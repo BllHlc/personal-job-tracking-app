@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 import { Logo } from '../icons';
 import { Box } from '@mui/system';
@@ -6,12 +6,13 @@ import { Button, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuIte
 import AddIcon from '@mui/icons-material/Add';
 import { useMainContext } from '../../context/MainContext';
 import { nanoid } from 'nanoid';
+import { prioritys, PRIORTY_TYPES } from "../../constants/global";
 
 const Header = () => {
-  const [name, setName] = React.useState('');
-  const [priority, setPriority] = React.useState('');
-  const [nameError, setNameError] = React.useState(false);
-  const [priorityError, setPriorityError] = React.useState(false);
+  const [name, setName] = useState('');
+  const [priority, setPriority] = useState('');
+  const [nameError, setNameError] = useState(false);
+  const [priorityError, setPriorityError] = useState(false);
   const { addJobs } = useMainContext();
 
   useEffect(() => {
@@ -24,7 +25,10 @@ const Header = () => {
     !priority ? setPriorityError(true) : setPriorityError(false);
 
     if (!name || !priority) return;
-    const priorityColor = priority === 'urgent' ? 'red' : priority === 'regular' ? 'orange' : 'blue';
+    const priorityColor =
+      priority === PRIORTY_TYPES.URGENT ? 'red' :
+        priority === PRIORTY_TYPES.REGULAR ? 'orange' :
+          'blue';
 
     addJobs({ id: nanoid(), name, priority, priorityColor });
     setName('');
@@ -75,9 +79,13 @@ const Header = () => {
                 label="Age"
                 onChange={(e) => setPriority(e.target.value)}
               >
-                <MenuItem value={"trivial"}>Trivial</MenuItem>
-                <MenuItem value={"regular"}>Regular</MenuItem>
-                <MenuItem value={"urgent"}>Urgent</MenuItem>
+                {
+                  prioritys.map((item, index) => {
+                    return (
+                      <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                    );
+                  })
+                }
               </Select>
               {priority.length === 0 && < FormHelperText>Job priority is required</FormHelperText>}
             </FormControl>

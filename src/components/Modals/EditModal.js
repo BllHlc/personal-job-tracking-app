@@ -6,6 +6,7 @@ import styles from './ModalStyles.module.scss';
 import Button from '@mui/material/Button';
 import { useMainContext } from '../../context/MainContext';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { prioritys } from '../../constants/global';
 
 const EditModal = ({ open, setOpen, jobID }) => {
   const { editJobPriority, filteredArray } = useMainContext();
@@ -61,9 +62,11 @@ const EditModal = ({ open, setOpen, jobID }) => {
                 onChange={(e) => setPriority(e.target.value)}
                 sx={{ textAlign: 'left' }}
               >
-                <MenuItem value={"trivial"}>Trivial</MenuItem>
-                <MenuItem value={"regular"}>Regular</MenuItem>
-                <MenuItem value={"urgent"}>Urgent</MenuItem>
+                {prioritys.map((priority) => (
+                  <MenuItem key={priority.value} value={priority.value}>
+                    {priority.label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>

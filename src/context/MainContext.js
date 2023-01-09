@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from 'react';
+import { PRIORTY_TYPES } from '../constants/global';
 
 const MainContext = createContext();
 
@@ -37,7 +38,8 @@ const MainContextProvider = ({ children }) => {
     const newJobs = jobs.map((job) => {
       if (job.id === id) {
         job.priority = priority;
-        job.priorityColor = priority === 'urgent' ? 'red' : priority === 'regular' ? 'orange' : 'blue';
+        job.priorityColor = priority === PRIORTY_TYPES.URGENT ? 'red' :
+          priority === PRIORTY_TYPES.REGULAR ? 'orange' : 'blue';
       }
       return job;
     });
